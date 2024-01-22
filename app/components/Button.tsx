@@ -25,6 +25,7 @@ const Button: React.FC<ButtonTypeProps> = ({
 }) => {
   return (
     <button
+    onClick={onClick}
       disabled={disabled}
       className={` disabled: cursor-pointer disabled:opacity-70 rounded-md hover:opacity-80 w-full flex items-center justify-center gap-2 ${
         outline ? "bg-white" : "bg-slate-700"
