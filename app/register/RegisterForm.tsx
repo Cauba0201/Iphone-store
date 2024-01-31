@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Heading from "../components/Heading";
 import Input from "../components/inputs/Input";
 import { FieldValues, useForm, SubmitHandler } from "react-hook-form";
@@ -11,8 +11,13 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { SafeUser } from "@/types";
 
-const RegisterForm = () => {
+interface RegisterFormProps {
+  currentUser: SafeUser | null;
+}
+
+const RegisterForm: React.FC<RegisterFormProps> = ({currentUser}) => {
   const [isLoading, setIsLoading] = useState(false);
   const {
     register,
@@ -28,15 +33,22 @@ const RegisterForm = () => {
 
   const router = useRouter();
 
+  useEffect(() => {
+    if(currentUser){
+      router.push('/cart')
+      router.refresh()
+    }
+  }, [])
+
+
   const onsubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
-    console.log(data);
+    console.log(data); //
     // call api for login
     axios
       .post("/register", data)
       .then(() => {
         toast.success("Account created");
-
         signIn("credentials", {
           email: data.email,
           password: data.password,
@@ -57,6 +69,11 @@ const RegisterForm = () => {
         setIsLoading(false);
       });
   };
+
+  if(currentUser){
+    return <p className="text-center">Logged in. Redicecting...</p>
+  }
+
   return (
     <>
       <Heading title="Sign up for An'Store" />
