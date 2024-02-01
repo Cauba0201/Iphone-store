@@ -17,7 +17,7 @@ interface RegisterFormProps {
   currentUser: SafeUser | null;
 }
 
-const RegisterForm: React.FC<RegisterFormProps> = ({currentUser}) => {
+const RegisterForm: React.FC<RegisterFormProps> = ({ currentUser }) => {
   const [isLoading, setIsLoading] = useState(false);
   const {
     register,
@@ -34,12 +34,12 @@ const RegisterForm: React.FC<RegisterFormProps> = ({currentUser}) => {
   const router = useRouter();
 
   useEffect(() => {
-    if(currentUser){
-      router.push('/cart')
-      router.refresh()
+    if (currentUser) {
+      router.push("/cart");
+      router.refresh();
     }
-  }, [])
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onsubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
@@ -70,18 +70,18 @@ const RegisterForm: React.FC<RegisterFormProps> = ({currentUser}) => {
       });
   };
 
-  if(currentUser){
-    return <p className="text-center">Logged in. Redicecting...</p>
+  if (currentUser) {
+    return <p className="text-center">Logged in. Redicecting...</p>;
   }
 
   return (
     <>
       <Heading title="Sign up for An'Store" />
       <Button
-        label="Sign up with Google"
+        label="Continue with Google"
         outline
         icon={AiOutlineGoogle}
-        onClick={() => {}}
+        onClick={() => {signIn('google')}}
       />
       <hr className="bg-slate-300 w-full h-px" />
       <Input

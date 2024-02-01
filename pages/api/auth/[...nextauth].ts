@@ -9,8 +9,8 @@ export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      clientId: process.env.GOOGLE_CLIENT_ID as string, //đăng nhập bằng google id
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string, //secret
     }),
     CredentialsProvider({
       name: "credentials",
@@ -56,7 +56,7 @@ export const authOptions: AuthOptions = {
   pages: {
     signIn: "/login",
   },
-  debug: process.env.NODE_ENV === "production",
+  debug: process.env.NODE_ENV === "production", //production or development
   session: {
     strategy: "jwt",
   },
@@ -64,4 +64,3 @@ export const authOptions: AuthOptions = {
 };
 
 export default NextAuth(authOptions);
-

@@ -37,6 +37,7 @@ const LoginForm: React.FC<LoginFormProps> = ({currentUser}) => {
       router.push('/cart')
       router.refresh()
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const onsubmit: SubmitHandler<FieldValues> = (data) => {
@@ -70,7 +71,7 @@ const LoginForm: React.FC<LoginFormProps> = ({currentUser}) => {
         label="Continue with Google"
         outline
         icon={AiOutlineGoogle}
-        onClick={() => {}}
+        onClick={() => {signIn('google')}}
       />
       <hr className="bg-slate-300 w-full h-px" />
 
